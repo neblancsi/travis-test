@@ -7,3 +7,14 @@ before_install:
   - docker build -t neblancsi/travis-test -f Dockerfile.dev .
 script:
   - docker run -e CI=true neblancsi/travis-test npm run test 
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-central-1"
+  app: "travis-test"
+  env: "Travistest-env"
+  bucket_name: "elasticbeanstalk-eu-central-1-448821133462"
+  bucket_path: "travis-test"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
