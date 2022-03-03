@@ -1,0 +1,9 @@
+lanuage: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t neblancsi/travis-test -f Dockerfile.dev .
+script:
+  - docker run -e CI=true neblancsi/travis-test npm run test 
